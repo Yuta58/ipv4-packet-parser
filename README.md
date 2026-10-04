@@ -47,3 +47,10 @@ If `IHL` declares a header longer than the buffer, `parseIpv4` throws a
 `RangeError` whose message names the declared header length and the actual
 buffer length. An empty buffer throws a `RangeError` specifically naming the
 version/IHL byte.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
